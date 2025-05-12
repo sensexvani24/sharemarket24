@@ -1,0 +1,19 @@
+baseURL = "https://sharemarket24.netlify.app/"
+title = "ShareMarket24"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 5
+
+[params]
+  ShowReadingTime = true
+  defaultTheme = "auto"
+
+[params.homeInfoParams]
+  Title = "Welcome to ShareMarket24"
+  Content = "Get your daily Pre & Post Market Reports — in Hindi and English"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
