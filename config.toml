@@ -1,4 +1,4 @@
-baseURL = "https://sharemarket24.netlify.app/"
+baseURL = "https://sharemarket24.com"
 title = "ShareMarket24"
 theme = "PaperMod"
 [pagination]
