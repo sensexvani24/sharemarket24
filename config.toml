@@ -17,3 +17,5 @@ theme = "PaperMod"
     name = "Home"
     url = "/"
     weight = 1
+[params.assets]
+  favicon = "favicon.png"
