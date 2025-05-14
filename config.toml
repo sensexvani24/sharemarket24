@@ -7,6 +7,12 @@ theme = "PaperMod"
 [params]
   ShowReadingTime = true
   defaultTheme = "auto"
+  env = "production"
+  title = "ShareMarket24"
+  logo = "/images/logo.png"
+  logoAlt = "ShareMarket24 Logo"
+  showBrandLogo = true
+  showBrandTitle = true
 
 [params.homeInfoParams]
   Title = "Welcome to ShareMarket24"
