@@ -2,6 +2,7 @@
 title: "Sensex Eyes Positive Start on Global Cues – May 15 Pre-Market Report"
 date: 2025-05-15T07:00:00+05:30
 draft: false
+slug: "pre-market-report-may-15-2025"
 description: "The Indian stock market is likely to open higher on May 15, 2025, following strong global cues and easing inflation data. GIFT Nifty hints at a positive start. Read the full pre-market report."
 keywords: ["Indian stock market", "pre-market report", "May 15 2025", "Sensex", "Nifty", "GIFT Nifty", "global market", "FIIs", "Bank Nifty", "stock news"]
 ---
