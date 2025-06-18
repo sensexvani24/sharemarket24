@@ -12,7 +12,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-pre-market"
     fields:
-      - { label: "Title", name: "title", widget: "string", default: "Pre-Market Report - {{date}}" }
+      - { label: "Title", name: "title", widget: "string", hint: "Make each title unique! Example: 'Bullish Pre-Market: Global Cues Boost Nifty - June 18, 2025'" }
       - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["pre-market", "stock-market", "nifty", "sensex"] }
@@ -60,7 +60,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-post-market"
     fields:
-      - { label: "Title", name: "title", widget: "string", default: "Post-Market Report - {{date}}" }
+      - { label: "Title", name: "title", widget: "string", hint: "Make each title unique! Example: 'Post-Market Wrap: Sensex Surges on Banking Rally - June 18, 2025'" }
       - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post-market", "stock-market", "nifty", "sensex"] }
