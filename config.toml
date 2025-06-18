@@ -25,80 +25,42 @@ languageCode = "en-IN"
   # Theme Settings
   defaultTheme = "light"
   disableThemeToggle = false
-  
+
   # Homepage Info
   [params.homeInfoParams]
-    Title = "📈 ShareMarket24 - Live Stock Market Updates"
-    Content = """
-    Get **real-time stock market analysis**, daily pre & post market reports, and expert predictions for NIFTY, SENSEX, and Indian stocks. 
-    
-    🔴 **LIVE Updates** | 📊 **Expert Analysis** | 🎯 **Market Predictions**
-    """
+    Title = "ShareMarket24 - Live Stock Market Updates"
+    Content = "Get real-time stock market analysis, daily pre & post market reports, and expert predictions for NIFTY, SENSEX, and Indian stocks."
 
-  # Social Media (for SEO)
-  [params.socialIcons]
-    [[params.socialIcons]]
-      name = "rss"
-      url = "/index.xml"
+  # Social Media Icons (Fixed Array Format)
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
 
 # Enhanced Menu Structure
-[menu]
-  [[menu.main]]
-    name = "🏠 Home"
-    url = "/"
-    weight = 10
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 10
 
-  [[menu.main]]
-    name = "📈 Pre-Market Reports"
-    url = "/pre-market/"
-    weight = 20
+[[menu.main]]
+  name = "Pre-Market Reports"
+  url = "/pre-market/"
+  weight = 20
 
-  [[menu.main]]
-    name = "📉 Post-Market Analysis"
-    url = "/post-market/"
-    weight = 30
+[[menu.main]]
+  name = "Post-Market Analysis"
+  url = "/post-market/"
+  weight = 30
 
-  [[menu.main]]
-    name = "🎯 Market Predictions"
-    url = "/analysis/"
-    weight = 40
-
-  [[menu.main]]
-    name = "📊 Live Updates"
-    url = "/live/"
-    weight = 50
+[[menu.main]]
+  name = "Market Predictions"
+  url = "/analysis/"
+  weight = 40
 
 # SEO-Optimized Permalinks
 [permalinks]
-  "pre-market" = "/pre-market/:year/:month/:day/:slug/"
-  "post-market" = "/post-market/:year/:month/:day/:slug/"
-  "analysis" = "/analysis/:slug/"
-  "posts" = "/:slug/"
+  posts = "/:slug/"
 
 # Assets Configuration
 [params.assets]
   favicon = "favicon.ico"
-  favicon16x16 = "favicon-16x16.png"
-  favicon32x32 = "favicon-32x32.png"
-  apple_touch_icon = "apple-touch-icon.png"
-  safari_pinned_tab = "safari-pinned-tab.svg"
-
-# Markup Configuration for SEO
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-  [markup.highlight]
-    lineNos = false
-    style = "github"
-    noClasses = false
-
-# Site-wide SEO enhancements
-[params.fuseOpts]
-  isCaseSensitive = false
-  shouldSort = true
-  location = 0
-  distance = 1000
-  threshold = 0.4
-  minMatchCharLength = 0
-  keys = ["title", "permalink", "summary", "content"]
