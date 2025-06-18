@@ -1,31 +1,104 @@
 baseURL = "https://sharemarket24.com"
-title = "ShareMarket24"
+title = "ShareMarket24 - Live Stock Market Updates & Analysis"
 theme = "PaperMod"
+languageCode = "en-IN"
+
 [pagination]
-  pagerSize = 5
+  pagerSize = 10
 
 [params]
-  ShowReadingTime = true
-  defaultTheme = "auto"
   env = "production"
-  
   title = "ShareMarket24"
-  logo = "/images/logo.png"
-  logoAlt = "ShareMarket24 Logo"
-  showBrandLogo = true
-  showBrandTitle = true
+  description = "Get live stock market updates, Nifty & Sensex analysis, pre-market reports, and expert market predictions. Your trusted source for Indian stock market news."
+  keywords = ["share market today", "stock market live", "nifty live", "sensex today", "stock market news", "nifty prediction", "pre market analysis", "Indian stock market"]
+  author = "ShareMarket24 Team"
+  
+  # SEO Settings
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = false
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  
+  # Theme Settings
+  defaultTheme = "light"
+  disableThemeToggle = false
+  
+  # Homepage Info
+  [params.homeInfoParams]
+    Title = "📈 ShareMarket24 - Live Stock Market Updates"
+    Content = """
+    Get **real-time stock market analysis**, daily pre & post market reports, and expert predictions for NIFTY, SENSEX, and Indian stocks. 
+    
+    🔴 **LIVE Updates** | 📊 **Expert Analysis** | 🎯 **Market Predictions**
+    """
 
-[params.homeInfoParams]
-  Title = "Welcome to ShareMarket24"
-  Content = "Get your daily Pre & Post Market Reports — in Hindi and English"
+  # Social Media (for SEO)
+  [params.socialIcons]
+    [[params.socialIcons]]
+      name = "rss"
+      url = "/index.xml"
 
+# Enhanced Menu Structure
 [menu]
   [[menu.main]]
-    name = "Home"
+    name = "🏠 Home"
     url = "/"
-    weight = 1
-[params.assets]
-  favicon = "favicon.png"
+    weight = 10
 
+  [[menu.main]]
+    name = "📈 Pre-Market Reports"
+    url = "/pre-market/"
+    weight = 20
+
+  [[menu.main]]
+    name = "📉 Post-Market Analysis"
+    url = "/post-market/"
+    weight = 30
+
+  [[menu.main]]
+    name = "🎯 Market Predictions"
+    url = "/analysis/"
+    weight = 40
+
+  [[menu.main]]
+    name = "📊 Live Updates"
+    url = "/live/"
+    weight = 50
+
+# SEO-Optimized Permalinks
 [permalinks]
-posts = "/:slug/"
+  "pre-market" = "/pre-market/:year/:month/:day/:slug/"
+  "post-market" = "/post-market/:year/:month/:day/:slug/"
+  "analysis" = "/analysis/:slug/"
+  "posts" = "/:slug/"
+
+# Assets Configuration
+[params.assets]
+  favicon = "favicon.ico"
+  favicon16x16 = "favicon-16x16.png"
+  favicon32x32 = "favicon-32x32.png"
+  apple_touch_icon = "apple-touch-icon.png"
+  safari_pinned_tab = "safari-pinned-tab.svg"
+
+# Markup Configuration for SEO
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    lineNos = false
+    style = "github"
+    noClasses = false
+
+# Site-wide SEO enhancements
+[params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = ["title", "permalink", "summary", "content"]
