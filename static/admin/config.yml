@@ -1,3 +1,25 @@
+baseURL: "https://sharemarket24.com"
+languageCode: "en-us"
+title: "ShareMarket24 - Latest Stock Market News & Analysis"
+theme: "PaperMod"
+
+# Enable Git information
+enableGitInfo: true
+
+# Pagination
+paginate: 10
+
+# Build settings
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# SEO and Performance
+enableRobotsTXT: true
+enableEmoji: true
+pygmentsUseClasses: true
+
+# Netlify CMS Configuration
 backend:
   name: git-gateway
   branch: main
@@ -5,6 +27,98 @@ backend:
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
+# Site Parameters
+params:
+  # SEO Improvements
+  env: production
+  title: "ShareMarket24"
+  description: "Get real-time stock market updates, financial news, and expert analysis. Stay informed with ShareMarket24's comprehensive market coverage."
+  keywords: ["stock market", "financial news", "market analysis", "trading", "investments", "NSE", "BSE", "Nifty", "Sensex"]
+  author: "ShareMarket24 Team"
+  
+  # Images for social sharing
+  images: ["/images/sharemarket24-logo.png"]
+  
+  # Header customization
+  label:
+    text: "ShareMarket24"
+    icon: "/images/logo.png"
+  
+  # Theme settings
+  ShowShareButtons: true
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  
+  # Theme mode
+  disableThemeToggle: false
+  defaultTheme: "light"
+  
+  # Homepage settings
+  homeInfoParams:
+    Title: "Welcome to ShareMarket24"
+    Content: "Your trusted source for real-time stock market updates, expert analysis, and financial news. Stay ahead with our comprehensive market coverage."
+  
+  # Social Media Links
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/sharemarket24"
+    - name: linkedin
+      url: "https://linkedin.com/company/sharemarket24"
+    - name: youtube
+      url: "https://youtube.com/@sharemarket24"
+    - name: rss
+      url: "/index.xml"
+
+# Menu Configuration
+menu:
+  main:
+    - identifier: home
+      name: "🏠 Home"
+      url: /
+      weight: 10
+    - identifier: pre-market
+      name: "📈 Pre-Market"
+      url: /pre-market/
+      weight: 20
+    - identifier: post-market
+      name: "📉 Post-Market"
+      url: /post-market/
+      weight: 30
+    - identifier: analysis
+      name: "📊 Analysis"
+      url: /analysis/
+      weight: 40
+    - identifier: tools
+      name: "🔧 Tools"
+      url: /tools/
+      weight: 50
+    - identifier: about
+      name: "ℹ️ About"
+      url: /about/
+      weight: 60
+
+# Markup settings
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    lineNos: true
+    style: github
+    noClasses: false
+
+# Privacy settings
+privacy:
+  googleAnalytics:
+    disable: false
+    anonymizeIP: true
+    respectDoNotTrack: true
+
+# Collections for Netlify CMS (keeping your existing structure)
 collections:
   - name: "pre-market"
     label: "📈 Pre-Market Reports"
@@ -134,75 +248,3 @@ collections:
           - { label: "Date", name: "date", widget: "datetime" }
           - { label: "Draft", name: "draft", widget: "boolean", default: false }
           - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "settings"
-    label: "⚙️ Site Settings"
-    files:
-      - label: "Navigation"
-        name: "navigation"
-        file: "data/navigation.yml"
-        fields:
-          - label: "Main Menu"
-            name: "main"
-            widget: "list"
-            fields:
-              - { label: "Name", name: "name", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
-              - { label: "Weight", name: "weight", widget: "number", default: 1 }
-    params:
-  # Enable custom CSS
-    assets:
-    disableHLJS: false
-  
-  # SEO Improvements
-    env: production
-    title: "ShareMarket24 - Latest Stock Market News & Analysis"
-    description: "Get real-time stock market updates, financial news, and expert analysis. Stay informed with ShareMarket24's comprehensive market coverage."
-    keywords: ["stock market", "financial news", "market analysis", "trading", "investments"]
-    author: "ShareMarket24 Team"
-  
-  # Social Media & SEO
-    images: ["/images/sharemarket24-logo.png"]
-  
-  # Header customization
-    label:
-    text: "ShareMarket24"
-    icon: "/images/logo.png" # Add your logo file to static/images/
-  
-  # Menu configuration
-    ShowShareButtons: true
-    ShowReadingTime: true
-    ShowPostNavLinks: true
-    ShowBreadCrumbs: true
-  
-  # Theme settings
-    disableThemeToggle: false
-    defaultTheme: "auto"
-
-# Menu Configuration
-menu:
-  main:
-    - identifier: home
-      name: Home
-      url: /
-      weight: 10
-    - identifier: markets
-      name: Markets
-      url: /markets/
-      weight: 20
-    - identifier: news
-      name: News
-      url: /news/
-      weight: 30
-    - identifier: analysis
-      name: Analysis
-      url: /analysis/
-      weight: 40
-    - identifier: tools
-      name: Tools
-      url: /tools/
-      weight: 50
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 60
