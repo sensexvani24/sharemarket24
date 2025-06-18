@@ -149,3 +149,60 @@ collections:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
               - { label: "Weight", name: "weight", widget: "number", default: 1 }
+    params:
+  # Enable custom CSS
+    assets:
+    disableHLJS: false
+  
+  # SEO Improvements
+    env: production
+    title: "ShareMarket24 - Latest Stock Market News & Analysis"
+    description: "Get real-time stock market updates, financial news, and expert analysis. Stay informed with ShareMarket24's comprehensive market coverage."
+    keywords: ["stock market", "financial news", "market analysis", "trading", "investments"]
+    author: "ShareMarket24 Team"
+  
+  # Social Media & SEO
+    images: ["/images/sharemarket24-logo.png"]
+  
+  # Header customization
+    label:
+    text: "ShareMarket24"
+    icon: "/images/logo.png" # Add your logo file to static/images/
+  
+  # Menu configuration
+    ShowShareButtons: true
+    ShowReadingTime: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+  
+  # Theme settings
+    disableThemeToggle: false
+    defaultTheme: "auto"
+
+# Menu Configuration
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: markets
+      name: Markets
+      url: /markets/
+      weight: 20
+    - identifier: news
+      name: News
+      url: /news/
+      weight: 30
+    - identifier: analysis
+      name: Analysis
+      url: /analysis/
+      weight: 40
+    - identifier: tools
+      name: Tools
+      url: /tools/
+      weight: 50
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 60

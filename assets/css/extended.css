@@ -1,0 +1,215 @@
+/* Stock Market Header Styles */
+.market-ticker {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    padding: 8px 0;
+    border-bottom: 2px solid #00ff88;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.ticker-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.ticker-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: tickerScroll 30s linear infinite;
+}
+
+.ticker-item {
+    white-space: nowrap;
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticker-item strong {
+    color: #00ff88;
+}
+
+.price {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.change {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.change.positive {
+    background-color: #00ff8820;
+    color: #00ff88;
+}
+
+.change.negative {
+    background-color: #ff006620;
+    color: #ff0066;
+}
+
+/* Enhanced Header Navigation */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--theme);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.logo-text {
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+}
+
+#menu li a {
+    position: relative;
+    padding: 10px 0;
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#menu li a:hover,
+#menu li a.active {
+    color: var(--primary);
+}
+
+#menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    transition: width 0.3s ease;
+}
+
+#menu li a:hover::after,
+#menu li a.active::after {
+    width: 100%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-actions button {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.header-actions button:hover {
+    background: var(--border);
+    color: var(--primary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .ticker-content {
+        justify-content: flex-start;
+        animation: tickerScrollMobile 20s linear infinite;
+    }
+    
+    .ticker-item {
+        margin-right: 30px;
+        font-size: 12px;
+    }
+    
+    .nav {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    
+    #menu {
+        gap: 20px;
+        font-size: 14px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+}
+
+/* Ticker Animations */
+@keyframes tickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes tickerScrollMobile {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Dark Mode Support */
+body.dark .market-ticker {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-bottom-color: #00ff88;
+}
+
+/* Additional Professional Styling */
+.header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav {
+    position: relative;
+}
+
+.nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
