@@ -1,4 +1,4 @@
-{{- /* Clean Minimalist Header - No APIs, No Complications */}}
+{{- /* Responsive Header - Auto-adjusting for all screen sizes */}}
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
@@ -12,18 +12,69 @@
 {{- end }}
 
 <header class="header">
-    <nav class="nav">
+    <!-- Mobile Layout: Logo on top, menu below -->
+    <div class="mobile-header">
+        <div class="mobile-top">
+            <div class="logo">
+                <a href="{{ "/" | absLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
+                    <span class="logo-text">{{ site.Params.label.text | default site.Title }}</span>
+                </a>
+            </div>
+            
+            <div class="mobile-controls">
+                {{- if (not site.Params.disableThemeToggle) }}
+                <button id="theme-toggle" accesskey="t" title="Toggle Theme" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                {{- end }}
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <ul id="mobile-menu">
+                {{- $currentPage := . }}
+                {{- range site.Menus.main }}
+                {{- $menuURL := .URL | absLangURL }}
+                {{- $pageURL := $currentPage.Permalink | absLangURL }}
+                {{- $isMenuCurrent := eq $menuURL $pageURL }}
+                <li>
+                    <a href="{{ .URL | absLangURL }}" 
+                       title="{{ .Title | default .Name }}"
+                       {{- if $isMenuCurrent }} class="active"{{- end }}>
+                        <span>{{ .Name }}</span>
+                    </a>
+                </li>
+                {{- end }}
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Desktop Layout: Everything in one line -->
+    <nav class="desktop-nav">
         <div class="logo">
             <a href="{{ "/" | absLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
-                {{- if site.Params.label.icon }}
-                <img src="{{ site.Params.label.icon | absURL }}" alt="{{ site.Params.label.text | default site.Title }}" 
-                     aria-label="logo" height="24">
-                {{- end }}
                 <span class="logo-text">{{ site.Params.label.text | default site.Title }}</span>
             </a>
         </div>
 
-        <ul id="menu">
+        <ul id="desktop-menu">
             {{- $currentPage := . }}
             {{- range site.Menus.main }}
             {{- $menuURL := .URL | absLangURL }}
@@ -39,15 +90,15 @@
             {{- end }}
         </ul>
 
-        <div class="logo-switches">
+        <div class="desktop-controls">
             {{- if (not site.Params.disableThemeToggle) }}
-            <button id="theme-toggle" accesskey="t" title="Toggle Theme (Alt + T)" aria-label="Toggle theme">
-                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+            <button id="theme-toggle-desktop" accesskey="t" title="Toggle Theme" aria-label="Toggle theme">
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                      stroke-linejoin="round">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
-                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                      stroke-linejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
@@ -67,7 +118,7 @@
 </header>
 
 <style>
-/* Clean Header Styling - Tighter Spacing */
+/* Base Header Styles */
 .header {
     position: sticky;
     top: 0;
@@ -77,29 +128,25 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.nav {
+/* Mobile Layout (default) */
+.mobile-header {
+    display: block;
+    padding: 10px 15px;
+}
+
+.mobile-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 20px; /* Reduced from default padding */
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 50px; /* Reduced header height */
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Reduced gap */
+    margin-bottom: 8px;
 }
 
 .logo a {
     display: flex;
     align-items: center;
-    gap: 8px;
     text-decoration: none;
     color: var(--primary);
-    font-size: 22px; /* Slightly smaller */
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -108,109 +155,157 @@
     transition: color 0.3s ease;
 }
 
-.logo a:hover .logo-text {
-    color: var(--secondary);
+.mobile-nav {
+    width: 100%;
 }
 
-#menu {
+#mobile-menu {
     display: flex;
+    justify-content: space-between;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 20px; /* Reduced gap between menu items */
+    width: 100%;
 }
 
-#menu li a {
-    padding: 8px 12px; /* Reduced padding */
+#mobile-menu li {
+    flex: 1;
+    text-align: center;
+}
+
+#mobile-menu li a {
+    display: block;
+    padding: 8px 4px;
     color: var(--secondary);
     text-decoration: none;
     font-weight: 500;
     border-radius: 6px;
     transition: all 0.3s ease;
-    font-size: 15px; /* Slightly smaller */
+    font-size: 13px;
 }
 
-#menu li a:hover,
-#menu li a.active {
+#mobile-menu li a:hover,
+#mobile-menu li a.active {
     color: var(--primary);
     background: var(--border);
 }
 
-.logo-switches {
-    display: flex;
-    align-items: center;
-}
-
-#theme-toggle {
+.mobile-controls button,
+.desktop-controls button {
     background: none;
     border: none;
     color: var(--secondary);
     cursor: pointer;
-    padding: 6px; /* Reduced padding */
+    padding: 6px;
     border-radius: 6px;
     transition: all 0.3s ease;
 }
 
-#theme-toggle:hover {
+.mobile-controls button:hover,
+.desktop-controls button:hover {
     background: var(--border);
     color: var(--primary);
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .nav {
-        padding: 6px 15px;
-        flex-wrap: nowrap; /* Prevent wrapping */
-        min-height: 45px;
+/* Desktop Layout (hidden on mobile) */
+.desktop-nav {
+    display: none;
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+    .mobile-header {
+        display: none;
+    }
+    
+    .desktop-nav {
+        display: flex;
         justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
     }
     
     .logo a {
-        font-size: 16px; /* Smaller logo on mobile */
-        gap: 4px;
+        font-size: 24px;
     }
     
-    #menu {
-        gap: 8px; /* Much tighter menu spacing */
-        font-size: 12px; /* Smaller menu text */
+    #desktop-menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 30px;
     }
     
-    #menu li a {
-        padding: 4px 6px; /* Smaller menu padding */
-        font-size: 12px;
+    #desktop-menu li a {
+        padding: 10px 15px;
+        color: var(--secondary);
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-size: 16px;
     }
     
-    #theme-toggle {
-        padding: 4px;
+    #desktop-menu li a:hover,
+    #desktop-menu li a.active {
+        color: var(--primary);
+        background: var(--border);
     }
 }
 
-/* Extra small screens */
-@media (max-width: 480px) {
-    .nav {
-        padding: 4px 10px;
-    }
-    
-    .logo a {
-        font-size: 15px; /* Even smaller */
-    }
-    
-    #menu {
-        gap: 6px;
-    }
-    
-    #menu li a {
-        padding: 3px 5px;
-        font-size: 11px;
-    }
-}
-
-/* Dark mode support */
+/* Theme Toggle */
+body.dark .moon-icon,
 body.dark #moon {
     display: none;
 }
 
+body:not(.dark) .sun-icon,
 body:not(.dark) #sun {
     display: none;
 }
+
+/* Very Small Screens */
+@media (max-width: 360px) {
+    .mobile-header {
+        padding: 8px 10px;
+    }
+    
+    .logo a {
+        font-size: 18px;
+    }
+    
+    #mobile-menu li a {
+        font-size: 12px;
+        padding: 6px 2px;
+    }
+}
 </style>
+
+<script>
+// Handle both theme toggle buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileToggle = document.getElementById('theme-toggle');
+    const desktopToggle = document.getElementById('theme-toggle-desktop');
+    
+    function toggleTheme() {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    }
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener("click", toggleTheme);
+    }
+    
+    if (desktopToggle) {
+        desktopToggle.addEventListener("click", toggleTheme);
+    }
+});
+</script>
