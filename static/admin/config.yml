@@ -15,4 +15,137 @@ collections:
       - { label: "Title", name: "title", widget: "string", default: "Pre-Market Report - {{date}}" }
       - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
-      # ... and continues with all the market data fields
+      - { label: "Tags", name: "tags", widget: "list", default: ["pre-market", "stock-market", "nifty", "sensex"] }
+      - { label: "Categories", name: "categories", widget: "select", options: ["pre-market", "market-analysis"] }
+      
+      # Market Data Fields
+      - label: "Market Data"
+        name: "market_data"
+        widget: "object"
+        fields:
+          - { label: "GIFT Nifty", name: "gift_nifty", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "SGX Nifty", name: "sgx_nifty", widget: "number", value_type: "float", step: 0.01, required: false }
+          - { label: "Dow Jones (Previous Close)", name: "dow_jones", widget: "number", value_type: "float", step: 0.01, required: false }
+          - { label: "Nasdaq (Previous Close)", name: "nasdaq", widget: "number", value_type: "float", step: 0.01, required: false }
+          - { label: "Market Sentiment", name: "sentiment", widget: "select", options: ["Bullish", "Bearish", "Neutral", "Mixed"] }
+      
+      # Key Highlights
+      - label: "Key Points"
+        name: "key_points"
+        widget: "list"
+        field: { label: "Point", name: "point", widget: "string" }
+        
+      # Stocks to Watch
+      - label: "Stocks to Watch"
+        name: "stocks_to_watch"
+        widget: "list"
+        fields:
+          - { label: "Stock Name", name: "name", widget: "string" }
+          - { label: "Reason", name: "reason", widget: "text" }
+          - { label: "Target Price", name: "target", widget: "number", value_type: "float", required: false }
+      
+      # Global Factors
+      - { label: "Global Market Cues", name: "global_cues", widget: "text", required: false }
+      - { label: "Domestic Factors", name: "domestic_factors", widget: "text", required: false }
+      
+      # Main Content
+      - { label: "Detailed Analysis", name: "body", widget: "markdown" }
+      
+      # SEO Fields
+      - { label: "Meta Description", name: "description", widget: "text", required: false }
+
+  - name: "post-market"
+    label: "📉 Post-Market Reports"
+    folder: "content/post-market"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-post-market"
+    fields:
+      - { label: "Title", name: "title", widget: "string", default: "Post-Market Report - {{date}}" }
+      - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Tags", name: "tags", widget: "list", default: ["post-market", "stock-market", "nifty", "sensex"] }
+      - { label: "Categories", name: "categories", widget: "select", options: ["post-market", "market-analysis"] }
+      
+      # Closing Data
+      - label: "Market Closing Data"
+        name: "closing_data"
+        widget: "object"
+        fields:
+          - { label: "Nifty 50 Close", name: "nifty_close", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Nifty Change", name: "nifty_change", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Nifty Change %", name: "nifty_change_percent", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Sensex Close", name: "sensex_close", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Sensex Change", name: "sensex_change", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Sensex Change %", name: "sensex_change_percent", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Market Sentiment", name: "sentiment", widget: "select", options: ["Bullish", "Bearish", "Neutral", "Mixed"] }
+      
+      # Performance Data
+      - label: "Top Gainers"
+        name: "top_gainers"
+        widget: "list"
+        fields:
+          - { label: "Stock", name: "stock", widget: "string" }
+          - { label: "Change %", name: "change_percent", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Price", name: "price", widget: "number", value_type: "float", step: 0.01 }
+      
+      - label: "Top Losers"
+        name: "top_losers"
+        widget: "list"
+        fields:
+          - { label: "Stock", name: "stock", widget: "string" }
+          - { label: "Change %", name: "change_percent", widget: "number", value_type: "float", step: 0.01 }
+          - { label: "Price", name: "price", widget: "number", value_type: "float", step: 0.01 }
+      
+      # Sector Performance
+      - label: "Sector Performance"
+        name: "sector_performance"
+        widget: "list"
+        fields:
+          - { label: "Sector", name: "sector", widget: "string" }
+          - { label: "Performance", name: "performance", widget: "select", options: ["Outperformer", "Underperformer", "Mixed"] }
+          - { label: "Change %", name: "change_percent", widget: "number", value_type: "float", step: 0.01, required: false }
+      
+      # Tomorrow's Outlook
+      - { label: "Tomorrow's Outlook", name: "tomorrow_outlook", widget: "text" }
+      
+      # Main Content
+      - { label: "Detailed Analysis", name: "body", widget: "markdown" }
+      
+      # SEO Fields
+      - { label: "Meta Description", name: "description", widget: "text", required: false }
+
+  - name: "pages"
+    label: "📄 Pages"
+    files:
+      - label: "About"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Draft", name: "draft", widget: "boolean", default: false }
+          - { label: "Body", name: "body", widget: "markdown" }
+      
+      - label: "Contact"
+        name: "contact"
+        file: "content/contact.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Draft", name: "draft", widget: "boolean", default: false }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - label: "Navigation"
+        name: "navigation"
+        file: "data/navigation.yml"
+        fields:
+          - label: "Main Menu"
+            name: "main"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Weight", name: "weight", widget: "number", default: 1 }
