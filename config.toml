@@ -1,5 +1,5 @@
 baseURL = "https://sharemarket24.com"
-title = "ShareMarket24 - Live Stock Market Updates & Analysis"
+title = "ShareMarket24"
 theme = "PaperMod"
 languageCode = "en-IN"
 
@@ -26,34 +26,34 @@ languageCode = "en-IN"
   defaultTheme = "light"
   disableThemeToggle = false
 
-  # Homepage Info
+  # Homepage Info - Shorter for mobile
   [params.homeInfoParams]
-    Title = "ShareMarket24 - Live Stock Market Updates"
-    Content = "Get real-time stock market analysis, daily pre & post market reports, and expert predictions for NIFTY, SENSEX, and Indian stocks."
+    Title = "ShareMarket24"
+    Content = "Live Stock Market Updates & Expert Analysis"
 
-  # Social Media Icons (Fixed Array Format)
+  # Social Media Icons
   [[params.socialIcons]]
     name = "rss"
     url = "/index.xml"
 
-# Enhanced Menu Structure
+# Mobile-Friendly Menu Structure
 [[menu.main]]
   name = "Home"
   url = "/"
   weight = 10
 
 [[menu.main]]
-  name = "Pre-Market Reports"
+  name = "Pre-Market"
   url = "/pre-market/"
   weight = 20
 
 [[menu.main]]
-  name = "Post-Market Analysis"
+  name = "Post-Market"
   url = "/post-market/"
   weight = 30
 
 [[menu.main]]
-  name = "Market Predictions"
+  name = "Analysis"
   url = "/analysis/"
   weight = 40
 
