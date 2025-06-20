@@ -1,4 +1,4 @@
-{{- /* Responsive Header - Auto-adjusting for all screen sizes */}}
+{{- /* ShareMarket24 - Mobile ET-Style Header + Desktop Original */}}
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
@@ -12,61 +12,62 @@
 {{- end }}
 
 <header class="header">
-    <!-- Mobile Layout: Logo on top, menu below -->
-    <div class="mobile-header">
-        <div class="mobile-top">
-            <div class="logo">
-                <a href="{{ "/" | absLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
-                    <span class="logo-text">{{ site.Params.label.text | default site.Title }}</span>
-                </a>
+    <!-- MOBILE LAYOUT - ET Style (NEW) -->
+    <div class="mobile-header-new">
+        <!-- Top Row -->
+        <div class="header-top">
+            <div class="header-left">
+                <div class="hamburger" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logo">
+                    <a href="{{ "/" | absLangURL }}" title="{{ site.Title }}">
+                        <span class="logo-highlight">Share</span>Market24
+                    </a>
+                </div>
             </div>
             
-            <div class="mobile-controls">
+            <div class="header-controls">
                 {{- if (not site.Params.disableThemeToggle) }}
-                <button id="theme-toggle" accesskey="t" title="Toggle Theme" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
+                <button class="theme-toggle-mobile" onclick="toggleThemeMobile()">
+                    <span class="theme-icon-mobile">🌙</span>
                 </button>
                 {{- end }}
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="lang-text">हिं</span>
+                </button>
             </div>
         </div>
         
-        <nav class="mobile-nav">
-            <ul id="mobile-menu">
-                {{- $currentPage := . }}
-                {{- range site.Menus.main }}
-                {{- $menuURL := .URL | absLangURL }}
-                {{- $pageURL := $currentPage.Permalink | absLangURL }}
-                {{- $isMenuCurrent := eq $menuURL $pageURL }}
-                <li>
-                    <a href="{{ .URL | absLangURL }}" 
-                       title="{{ .Title | default .Name }}"
-                       {{- if $isMenuCurrent }} class="active"{{- end }}>
-                        <span>{{ .Name }}</span>
-                    </a>
-                </li>
-                {{- end }}
-            </ul>
-        </nav>
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <a href="/pre-market/" class="tab" data-tab="pre-market">Pre-Market</a>
+            <a href="/post-market/" class="tab" data-tab="post-market">Post-Market</a>
+            <a href="/analysis/" class="tab" data-tab="analysis">Market Updates</a>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <div class="mobile-menu">
+                <div class="mobile-menu-header">
+                    <h3>ShareMarket24</h3>
+                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+                </div>
+                <nav class="mobile-menu-nav">
+                    <a href="{{ "/" | absLangURL }}">Home</a>
+                    <a href="/pre-market/">Pre-Market Reports</a>
+                    <a href="/post-market/">Post-Market Reports</a>
+                    <a href="/analysis/">Market Analysis</a>
+                    <a href="/tools/">Tools</a>
+                    <a href="/about/">About</a>
+                </nav>
+            </div>
+        </div>
     </div>
 
-    <!-- Desktop Layout: Everything in one line -->
+    <!-- DESKTOP LAYOUT - Keep Original -->
     <nav class="desktop-nav">
         <div class="logo">
             <a href="{{ "/" | absLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
@@ -118,103 +119,170 @@
 </header>
 
 <style>
-/* Base Header Styles */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* ===== MOBILE STYLES (0px - 768px) ===== */
+.mobile-header-new {
+    display: block;
     background: var(--theme);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Mobile Layout (default) */
-.mobile-header {
-    display: block;
-    padding: 10px 15px;
-}
-
-.mobile-top {
+.header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    padding: 12px 16px;
+    height: 56px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hamburger {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: 0.3s;
 }
 
 .logo a {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.logo-highlight {
+    color: #e53e3e;
+}
+
+.header-controls {
     display: flex;
     align-items: center;
-    text-decoration: none;
+    gap: 8px;
+}
+
+.theme-toggle-mobile, .lang-toggle {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
     color: var(--primary);
-    font-size: 20px;
-    font-weight: 700;
 }
 
-.logo-text {
-    color: var(--primary);
-    transition: color 0.3s ease;
+.theme-toggle-mobile:hover, .lang-toggle:hover {
+    background: var(--border);
 }
 
-.mobile-nav {
-    width: 100%;
+.theme-icon-mobile {
+    font-size: 16px;
 }
 
-#mobile-menu {
+/* Tab Navigation */
+.tab-navigation {
     display: flex;
-    justify-content: space-between;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
+    background: var(--code-bg);
+    border-top: 1px solid var(--border);
 }
 
-#mobile-menu li {
+.tab {
     flex: 1;
     text-align: center;
-}
-
-#mobile-menu li a {
-    display: block;
-    padding: 8px 4px;
-    color: var(--secondary);
-    text-decoration: none;
-    font-weight: 500;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    padding: 12px 8px;
     font-size: 13px;
+    font-weight: 500;
+    color: var(--secondary);
+    border-bottom: 3px solid transparent;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
-#mobile-menu li a:hover,
-#mobile-menu li a.active {
+.tab:hover, .tab.active {
+    color: #e53e3e;
+    border-bottom-color: #e53e3e;
+    background: var(--theme);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.mobile-menu {
+    background: var(--theme);
+    width: 280px;
+    height: 100%;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.mobile-menu-header h3 {
     color: var(--primary);
-    background: var(--border);
+    margin: 0;
 }
 
-.mobile-controls button,
-.desktop-controls button {
+.close-menu {
     background: none;
     border: none;
-    color: var(--secondary);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-
-.mobile-controls button:hover,
-.desktop-controls button:hover {
-    background: var(--border);
+    font-size: 24px;
     color: var(--primary);
+    cursor: pointer;
 }
 
-/* Desktop Layout (hidden on mobile) */
+.mobile-menu-nav {
+    padding: 20px 0;
+}
+
+.mobile-menu-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+}
+
+.mobile-menu-nav a:hover {
+    background: var(--border);
+}
+
+/* ===== DESKTOP STYLES (769px+) ===== */
 .desktop-nav {
     display: none;
 }
 
-/* Desktop Styles */
 @media (min-width: 769px) {
-    .mobile-header {
+    .mobile-header-new {
         display: none;
     }
     
@@ -245,7 +313,7 @@
         text-decoration: none;
         font-weight: 500;
         border-radius: 6px;
-        transition: all 0.3s ease;
+        transition: all 0.3s;
         font-size: 16px;
     }
     
@@ -254,58 +322,92 @@
         color: var(--primary);
         background: var(--border);
     }
+    
+    .desktop-controls button {
+        background: none;
+        border: none;
+        color: var(--secondary);
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+    
+    .desktop-controls button:hover {
+        background: var(--border);
+        color: var(--primary);
+    }
 }
 
-/* Theme Toggle */
+/* Theme Icons */
 body.dark .moon-icon,
-body.dark #moon {
+body.dark .theme-icon-mobile:contains('🌙') {
     display: none;
 }
 
-body:not(.dark) .sun-icon,
-body:not(.dark) #sun {
+body:not(.dark) .sun-icon {
     display: none;
-}
-
-/* Very Small Screens */
-@media (max-width: 360px) {
-    .mobile-header {
-        padding: 8px 10px;
-    }
-    
-    .logo a {
-        font-size: 18px;
-    }
-    
-    #mobile-menu li a {
-        font-size: 12px;
-        padding: 6px 2px;
-    }
 }
 </style>
 
 <script>
-// Handle both theme toggle buttons
+// Theme Toggle for Mobile
+function toggleThemeMobile() {
+    if (document.body.className.includes("dark")) {
+        document.body.classList.remove('dark');
+        localStorage.setItem("pref-theme", 'light');
+        document.querySelector('.theme-icon-mobile').textContent = '🌙';
+    } else {
+        document.body.classList.add('dark');
+        localStorage.setItem("pref-theme", 'dark');
+        document.querySelector('.theme-icon-mobile').textContent = '☀️';
+    }
+}
+
+// Language Toggle
+let isHindi = true;
+function toggleLanguage() {
+    isHindi = !isHindi;
+    document.getElementById('lang-text').textContent = isHindi ? 'हिं' : 'EN';
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+}
+
+// Desktop Theme Toggle (keep existing)
 document.addEventListener('DOMContentLoaded', function() {
-    const mobileToggle = document.getElementById('theme-toggle');
     const desktopToggle = document.getElementById('theme-toggle-desktop');
     
-    function toggleTheme() {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    }
-    
-    if (mobileToggle) {
-        mobileToggle.addEventListener("click", toggleTheme);
-    }
-    
     if (desktopToggle) {
-        desktopToggle.addEventListener("click", toggleTheme);
+        desktopToggle.addEventListener("click", function() {
+            if (document.body.className.includes("dark")) {
+                document.body.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            }
+        });
+    }
+    
+    // Set active tab based on current URL
+    const currentPath = window.location.pathname;
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        if (currentPath.includes(tab.getAttribute('data-tab'))) {
+            tab.classList.add('active');
+        }
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    if (event.target === overlay) {
+        overlay.style.display = 'none';
     }
 });
 </script>
