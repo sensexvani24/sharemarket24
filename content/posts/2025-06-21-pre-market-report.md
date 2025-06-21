@@ -8,7 +8,6 @@ tags: ["stock-market", "sensex", "nifty", "bank-nifty", "market-analysis", "psu-
 categories: ["Market Analysis", "Indian Markets", "Financial News"]
 ---
 
-# Sensex Nifty Today: Indian Stock Market Shows Resilience Amid Global Volatility - June 21, 2025
 
 **Market Analysis | Saturday, June 21, 2025 | Real-time Data Coverage: 100%**
 
