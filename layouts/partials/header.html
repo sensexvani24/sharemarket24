@@ -1,4 +1,4 @@
-{{- /* Hybrid ShareMarket24 Header - Keeps Current Mobile + Adds Social Sidebar */}}
+{{- /* Emergency Fix - Simple Working Header */}}
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
@@ -11,343 +11,63 @@
 </script>
 {{- end }}
 
-<header class="sharemarket-header">
-    <!-- Social Media Hamburger Menu Button (NEW - doesn't interfere with existing) -->
-    <button class="social-hamburger-menu" id="socialHamburgerMenu" onclick="toggleSocialSidebar()" title="Social Media & Newsletter">
-        <svg class="social-hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="1"></circle>
-            <circle cx="19" cy="12" r="1"></circle>
-            <circle cx="5" cy="12" r="1"></circle>
-            <circle cx="12" cy="5" r="1"></circle>
-            <circle cx="12" cy="19" r="1"></circle>
-            <circle cx="19" cy="5" r="1"></circle>
-            <circle cx="5" cy="5" r="1"></circle>
-            <circle cx="19" cy="19" r="1"></circle>
-            <circle cx="5" cy="19" r="1"></circle>
-        </svg>
-    </button>
-
-    <!-- MOBILE LAYOUT (Your Current Design - Preserved) -->
-    <div class="mobile-header-current">
-        <!-- Top Row - Your existing design -->
-        <div class="header-top">
-            <div class="header-left">
-                <div class="hamburger" onclick="toggleMobileMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="logo">
-                    <a href="{{ "/" | absLangURL }}" title="{{ site.Title }}">
-                        <span class="logo-highlight">Share</span>Market24
-                    </a>
-                </div>
-            </div>
-            
-            <div class="header-controls">
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="{{ "/" | absLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
+                <span style="color: #e53e3e;">Share</span>Market24
+            </a>
+            <div class="logo-switches">
                 {{- if (not site.Params.disableThemeToggle) }}
-                <button class="theme-toggle-mobile" onclick="toggleThemeMobile()">
-                    <span class="theme-icon-mobile">🌙</span>
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
                 </button>
                 {{- end }}
-                <button class="lang-toggle" onclick="toggleLanguage()">
-                    <span id="lang-text">हिं</span>
-                </button>
             </div>
         </div>
-        
-        <!-- Tab Navigation - Your existing tabs preserved -->
-        <div class="tab-navigation">
-            <a href="/pre-market/" class="tab" data-tab="pre-market">Pre-Market</a>
-            <a href="/post-market/" class="tab" data-tab="post-market">Post-Market</a>
-            <a href="/analysis/" class="tab" data-tab="analysis">Market Updates</a>
-        </div>
-        
-        <!-- Mobile Menu Overlay - Your existing menu -->
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-            <div class="mobile-menu">
-                <div class="mobile-menu-header">
-                    <h3>ShareMarket24</h3>
-                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
-                </div>
-                <nav class="mobile-menu-nav">
-                    <a href="{{ "/" | absLangURL }}">Home</a>
-                    <a href="/pre-market/">Pre-Market Reports</a>
-                    <a href="/post-market/">Post-Market Reports</a>
-                    <a href="/analysis/">Market Analysis</a>
-                    <a href="/tools/">Tools</a>
-                    <a href="/about/">About</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-
-    <!-- DESKTOP LAYOUT (Enhanced) -->
-    <nav class="desktop-nav">
-        <div class="logo-container">
-            <a href="{{ "/" | absLangURL }}" class="logo-link" title="{{ site.Title }}">
-                <span class="logo-text">
-                    <span class="logo-share">Share</span><span class="logo-market">Market24</span>
-                </span>
-            </a>
-        </div>
-
-        <ul class="desktop-menu" id="desktopMenu">
+        <ul id="menu">
             {{- $currentPage := . }}
             {{- range site.Menus.main }}
             {{- $menuURL := .URL | absLangURL }}
             {{- $pageURL := $currentPage.Permalink | absLangURL }}
             {{- $isMenuCurrent := eq $menuURL $pageURL }}
-            <li class="menu-item">
+            <li>
                 <a href="{{ .URL | absLangURL }}" 
-                   class="menu-link{{- if $isMenuCurrent }} active{{- end }}"
-                   title="{{ .Title | default .Name }}">
-                    {{ .Name }}
+                   title="{{ .Title | default .Name }}"
+                   {{- if $isMenuCurrent }} class="active"{{- end }}>
+                    <span>{{ .Name }}</span>
                 </a>
             </li>
             {{- end }}
         </ul>
-
-        <div class="desktop-controls">
-            {{- if (not site.Params.disableThemeToggle) }}
-            <button class="theme-toggle-desktop" id="themeToggleDesktop" title="Toggle Theme">
-                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-            </button>
-            {{- end }}
-            
-            <button class="language-toggle-desktop" id="languageToggleDesktop" title="Language">
-                <span class="lang-text-desktop">EN</span>
-            </button>
-        </div>
     </nav>
 </header>
 
-<!-- Social Media Sidebar Overlay (NEW FEATURE) -->
-<div class="social-sidebar-overlay" id="socialSidebarOverlay" onclick="closeSocialSidebar()"></div>
-
-<!-- Social Media Sidebar (NEW FEATURE) -->
-<div class="social-sidebar" id="socialSidebar">
-    <!-- Close Button -->
-    <button class="social-sidebar-close" onclick="closeSocialSidebar()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-    </button>
-
-    <!-- Sidebar Content -->
-    <div class="social-sidebar-content">
-        <!-- Follow Us Section -->
-        <div class="social-sidebar-section">
-            <h3 class="social-sidebar-title">FOLLOW US</h3>
-            <div class="social-links">
-                <a href="https://facebook.com/sharemarket24" class="social-link facebook" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                    <span class="social-name">Facebook</span>
-                    <span class="social-count">1.2K</span>
-                </a>
-
-                <a href="https://twitter.com/sharemarket24" class="social-link twitter" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                    </svg>
-                    <span class="social-name">Twitter</span>
-                    <span class="social-count">8.5K</span>
-                </a>
-
-                <a href="https://instagram.com/sharemarket24" class="social-link instagram" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.618 5.367 11.986 11.988 11.986s11.987-5.368 11.987-11.986C24.014 5.367 18.635.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.328-1.297L6.717 14.1c.48.48 1.15.778 1.732.778 1.297 0 2.27-.973 2.27-2.27S9.746 10.338 8.449 10.338s-2.27.973-2.27 2.27c0 .582.298 1.252.778 1.732l-1.591 1.596c-.807-.88-1.297-2.031-1.297-3.328 0-2.595 2.106-4.701 4.701-4.701s4.701 2.106 4.701 4.701-2.106 4.701-4.701 4.701z"/>
-                    </svg>
-                    <span class="social-name">Instagram</span>
-                    <span class="social-count">2.1K</span>
-                </a>
-
-                <a href="https://youtube.com/@sharemarket24" class="social-link youtube" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                    <span class="social-name">YouTube</span>
-                    <span class="social-count">15.3K</span>
-                </a>
-
-                <a href="https://linkedin.com/company/sharemarket24" class="social-link linkedin" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                    <span class="social-name">LinkedIn</span>
-                    <span class="social-count">3.7K</span>
-                </a>
-
-                <a href="https://t.me/sharemarket24" class="social-link telegram" target="_blank" rel="noopener">
-                    <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                    </svg>
-                    <span class="social-name">Telegram</span>
-                    <span class="social-count">5.2K</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Newsletter Section -->
-        <div class="social-sidebar-section newsletter-section">
-            <h3 class="social-sidebar-title">SIGN UP TO UPDATES</h3>
-            <h4 class="newsletter-title">Subscribe to Newsletter</h4>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" 
-                       class="newsletter-input" 
-                       placeholder="Enter your email" 
-                       required>
-                <button type="submit" class="newsletter-button">
-                    SUBSCRIBE
-                </button>
-            </form>
-            <div class="newsletter-terms">
-                <label class="checkbox-container">
-                    <input type="checkbox" required>
-                    <span class="checkmark"></span>
-                    By checking this box, you confirm that you have read and are agreeing to our terms of use regarding the storage of the data submitted through this form.
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-// ===== EXISTING MOBILE FUNCTIONALITY (Preserved) =====
-function toggleThemeMobile() {
-    if (document.body.className.includes("dark")) {
-        document.body.classList.remove('dark');
-        localStorage.setItem("pref-theme", 'light');
-        document.querySelector('.theme-icon-mobile').textContent = '🌙';
-    } else {
-        document.body.classList.add('dark');
-        localStorage.setItem("pref-theme", 'dark');
-        document.querySelector('.theme-icon-mobile').textContent = '☀️';
-    }
-}
-
-let isHindi = true;
-function toggleLanguage() {
-    isHindi = !isHindi;
-    document.getElementById('lang-text').textContent = isHindi ? 'हिं' : 'EN';
-}
-
-function toggleMobileMenu() {
-    const overlay = document.getElementById('mobileMenuOverlay');
-    overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
-}
-
-// ===== NEW SOCIAL SIDEBAR FUNCTIONALITY =====
-function toggleSocialSidebar() {
-    const sidebar = document.getElementById('socialSidebar');
-    const overlay = document.getElementById('socialSidebarOverlay');
-    
-    if (sidebar.classList.contains('open')) {
-        closeSocialSidebar();
-    } else {
-        openSocialSidebar();
-    }
-}
-
-function openSocialSidebar() {
-    const sidebar = document.getElementById('socialSidebar');
-    const overlay = document.getElementById('socialSidebarOverlay');
-    
-    sidebar.classList.add('open');
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeSocialSidebar() {
-    const sidebar = document.getElementById('socialSidebar');
-    const overlay = document.getElementById('socialSidebarOverlay');
-    
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-// ===== DESKTOP FUNCTIONALITY =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Desktop theme toggle
-    const desktopThemeToggle = document.getElementById('themeToggleDesktop');
-    if (desktopThemeToggle) {
-        desktopThemeToggle.addEventListener('click', function() {
-            if (document.body.classList.contains('dark')) {
-                document.body.classList.remove('dark');
-                localStorage.setItem("pref-theme", 'light');
-            } else {
-                document.body.classList.add('dark');
-                localStorage.setItem("pref-theme", 'dark');
-            }
-        });
-    }
-
-    // Desktop language toggle
-    const desktopLangToggle = document.getElementById('languageToggleDesktop');
-    let isEnglishDesktop = true;
-    if (desktopLangToggle) {
-        desktopLangToggle.addEventListener('click', function() {
-            isEnglishDesktop = !isEnglishDesktop;
-            this.querySelector('.lang-text-desktop').textContent = isEnglishDesktop ? 'EN' : 'हिं';
-        });
-    }
-
-    // Newsletter form
-    const newsletterForm = document.getElementById('newsletterForm');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert('Thank you for subscribing! Email: ' + email);
-            this.reset();
-            closeSocialSidebar();
-        });
-    }
-
-    // Set active tab based on current URL
-    const currentPath = window.location.pathname;
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => {
-        if (currentPath.includes(tab.getAttribute('data-tab'))) {
-            tab.classList.add('active');
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
         }
-    });
-
-    // Close sidebar with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeSocialSidebar();
-        }
-    });
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(event) {
-    const overlay = document.getElementById('mobileMenuOverlay');
-    if (event.target === overlay) {
-        overlay.style.display = 'none';
-    }
-    
-    const socialOverlay = document.getElementById('socialSidebarOverlay');
-    if (event.target === socialOverlay) {
-        closeSocialSidebar();
-    }
-});
+    })
 </script>

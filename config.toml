@@ -64,4 +64,3 @@ languageCode = "en-IN"
 # Assets Configuration
 [params.assets]
   favicon = "favicon.ico"
-  customCSS = ["css/hybrid-header.css"]
