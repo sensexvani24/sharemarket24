@@ -8,7 +8,6 @@ tags: ["stock-market", "sensex", "nifty", "india", "market-analysis", "pre-marke
 category: "Market Analysis"
 ---
 
-# Sensex Nifty Today: Indian Stock Market Consolidates Above Key Levels Amid Global Uncertainty - June 23, 2025
 
 ## Bottom Line Up Front
 
