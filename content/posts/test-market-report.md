@@ -1,4 +1,4 @@
-markdown---
+---
 title: "Sensex Nifty Today: Test Market Report"
 date: 2025-06-23T09:00:00+05:30
 description: "Test article to verify schema implementation"
