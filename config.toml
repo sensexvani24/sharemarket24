@@ -12,6 +12,8 @@ languageCode = "en-IN"
   description = "Get live stock market updates, Nifty & Sensex analysis, pre-market reports, and expert market predictions. Your trusted source for Indian stock market news."
   keywords = ["share market today", "stock market live", "nifty live", "sensex today", "stock market news", "nifty prediction", "pre market analysis", "Indian stock market"]
   author = "ShareMarket24 Team"
+  logo = "/images/logo.png"
+  default_image = "/images/sharemarket24-default.jpg"
   
   # SEO Settings
   ShowReadingTime = true

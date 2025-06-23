@@ -1,0 +1,57 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ if or (in .Title "Sensex") (in .Title "Nifty") (in .Title "market") }}AnalysisNewsArticle{{ else }}Article{{ end }}",
+  "headline": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary | plainify | truncate 160 }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ .Params.author | default .Site.Params.author | default .Site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.Params.logo | default "/images/logo.png" | absURL }}"
+    }
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ .Params.featured_image | default .Site.Params.default_image | default "/images/default-market.jpg" | absURL }}",
+    "width": 1200,
+    "height": 630
+  },
+  {{ if or (in .Title "Sensex") (in .Title "Nifty") (in .Title "stock") (in .Title "market") }}
+  "about": {
+    "@type": "FinancialProduct",
+    "name": "Indian Stock Market Analysis",
+    "description": "Real-time Indian equity market data and professional analysis",
+    "provider": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}"
+    }
+  },
+  {{ end }}
+  "keywords": [
+    {{ $keywords := slice }}
+    {{ if in .Title "Sensex" }}{{ $keywords = $keywords | append "Sensex" }}{{ end }}
+    {{ if in .Title "Nifty" }}{{ $keywords = $keywords | append "Nifty 50" }}{{ end }}
+    {{ if in .Title "stock market" }}{{ $keywords = $keywords | append "Indian stock market" }}{{ end }}
+    {{ if in .Title "analysis" }}{{ $keywords = $keywords | append "Market analysis" }}{{ end }}
+    {{ $keywords = $keywords | append "Stock market news" }}
+    {{ $keywords = $keywords | append .Section }}
+    {{ range $index, $keyword := $keywords }}
+    {{ if $index }},{{ end }}"{{ $keyword }}"
+    {{ end }}
+  ],
+  "articleSection": "{{ .Params.category | default .Section | title }}",
+  "wordCount": {{ .WordCount }}
+}
+</script>
